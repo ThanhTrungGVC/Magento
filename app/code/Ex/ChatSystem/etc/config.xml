@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+	<default>
+		<exchatsystem>
+			<general_settings>
+				<enable>1</enable>
+			</general_settings>
+			<chat>
+				<enable>1</enable>
+				<enable_guest>1</enable_guest>
+				<text_label>Chat With Us</text_label>
+				<background_color>#293239</background_color>
+				<store>1</store>
+			</chat>
+		</exchatsystem>
+	</default>
+</config>

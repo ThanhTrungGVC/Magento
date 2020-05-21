@@ -1,0 +1,1 @@
+/var/www/html/magento/app/design/frontend/Sm/magetheme/web/js/slick.js

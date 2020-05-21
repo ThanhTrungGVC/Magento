@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * exchange rate page index
+ *
+ * @copyright Copyright © 2020 MAGETOP. All rights reserved.
+ * @author    uet
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+  <head>
+  <title>Exchange Rate VietcomBank</title>
+</head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Ex\ExchangeRate\Block\Exchange" name="exchange" template="Ex_ExchangeRate::exchange.phtml">
+            </block>
+        </referenceContainer>
+    </body>
+</page>

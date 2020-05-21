@@ -1,0 +1,16 @@
+<?php
+      $xml = $this->get_xml_new();
+
+      if ($xml === false) {
+        echo "Failed loading XML: ";
+        foreach(libxml_get_errors() as $error) {
+          echo "<br>", $error->message;
+        }
+      }
+      else{
+        foreach ($xml->xpath('//channel/item') as $items){
+          echo "<a target='_blank' href='" . $items->link . "'>" .  $items->title . "</a><br/>";
+          echo $items->description . "<br/><br/>";
+        }
+      }
+?>

@@ -1,0 +1,38 @@
+<?php
+      $xml = $this->get_xml_exchangeRate();
+?>
+
+    <h2>Update at: <?php echo $xml->DateTime; ?></h2>
+    <button onclick="refresh()" title="Refresh" id="btnRefresh">Refresh</button>
+    <table id="Content_ExrateView" cellspacing="1" border="2">
+        <tbody>
+            <tr >
+                <th colspan="2" style="text-align: center; background: blue; padding: 10px; color: #fff;">Currency</th>
+                <th colspan="2" style="text-align: center; background: blue; padding: 10px; color: #fff;">Buying Rates</th>
+                <th rowspan="2" style="text-align: center; background: blue; padding: 10px; color: #fff;">
+                    <div style="font-weight:bold;">
+                    Selling Rates
+                    </div>
+                </th>
+            </tr>
+            <tr >
+                <th style="width:25%; text-align: center; background: blue; padding: 10px; color: #fff;">Currency Name</th>
+                <th style="text-align: center; background: blue; padding: 10px; color: #fff;">Currency Code</th>
+                <th style="width: 20%; text-align: center; background: blue; padding: 10px; color: #fff;">Cash</th>
+                <th style="width: 20%; text-align: center; background: blue; padding: 10px; color: #fff;">Transfer</th>
+            </tr>
+            <?php
+              foreach ($xml->Exrate as $value) {
+                ?>
+                <tr data-time="<?php echo $xml->DateTime; ?>">
+                    <td style="text-align:left;"> <?php echo $value['CurrencyName']; ?>  </td>
+                    <td style="text-align:center;"><?php echo $value['CurrencyCode']; ?></td>
+                    <td><?php echo $value['Buy']; ?> </td>
+                    <td><?php echo $value['Transfer']; ?></td>
+                    <td><?php echo $value['Sell']; ?></td>
+                </tr>
+                <?php
+              }
+            ?>
+        </tbody>
+    </table>

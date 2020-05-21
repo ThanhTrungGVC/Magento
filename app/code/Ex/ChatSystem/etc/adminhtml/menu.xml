@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../Backend/etc/menu.xsd">
+	<menu>
+		<add id="Ex_ChatSystem::chatsystem" sortOrder="10" title="ChatBox System" module="Ex_ChatSystem"
+			resource="Magento_Backend::chatsystem_elements" />
+		<add id="Ex_ChatSystem::chat" title="Chat" module="Ex_ChatSystem" sortOrder="75"
+			parent="Ex_ChatSystem::chatsystem" action="exchatsystem/chat/index" resource="Ex_ChatSystem::chat"/>
+		<add id="Ex_ChatSystem::settings" title="Configuration" module="Ex_ChatSystem" sortOrder="150"
+			action="adminhtml/system_config/edit/section/exchatsystem" resource="Ex_ChatSystem::config_chatsystem" parent="Ex_ChatSystem::chatsystem"/>
+	</menu>
+</config>

@@ -1,0 +1,54 @@
+<table cellspacing="1" border="2">
+  <tbody>
+    <tr>
+      <th rowspan="2">City Name</th>
+      <th colspan="4">Temperature</th>
+      <th rowspan="2">Humidity</th>
+      <th rowspan="2">Pressure</th>
+      <th colspan="2">Winds</th>
+      <th rowspan="2">Clouds</th>
+      <th rowspan="2">Precipitation</th>
+      <th rowspan="2">weather</th>
+      <th rowspan="2">Last Update</th>
+    </tr>
+    <tr>
+      <th>Value</th>
+      <th>Min</th>
+      <th>Max</th>
+      <th>Feels like</th>
+      <th>Speed</th>
+      <th>Name</th>
+    </tr>
+    <?php
+      $cityId = array("1559969", "1559970", "1559971", "1559972", "1559975", "1559976", "1559977", "1559978", "1562412", "1562798",
+                      "1563287", "1563926", "1564676", "1565033", "1565088", "1566083", "1566165", "1566319", "1566338", "1566557",
+                      "1567643", "1568733", "1568758", "1568769", "1568839", "1569805", "1572594", "1575788", "1576632", "1577882",
+                      "1579008", "1579634", "1580240", "1580578", "1580700", "1581019", "1581030", "1581088", "1581129", "1581188",
+                      "1581297", "1581882", "1582562", "1582720", "1583477", "1584169", "1584534", "1586182", "1586896", "1587871",
+                      "1587974", "1594446");
+      $cityId_test = array("1559969");
+      $arrlength = count($cityId_test);
+
+      for($x = 0; $x < $arrlength; $x++) {
+        $data = $this->get_xml_weather($cityId_test[$x]);
+        ?>
+        <tr>
+          <td><?php echo $data->city['name']; ?></td>
+          <td><?php echo $data->temperature['value'] . "°C"; ?></td>
+          <td><?php echo $data->temperature['min'] . "°C"; ?></td>
+          <td><?php echo $data->temperature['max'] . "°C"; ?></td>
+          <td><?php echo $data->feels_like['value'] . "°C"; ?></td>
+          <td><?php echo $data->humidity['value'] . "%"; ?></td>
+          <td><?php echo $data->pressure['value'] . "hPa"; ?></td>
+          <td><?php echo $data->wind->speed['value'] . "m/s"; ?></td>
+          <td><?php echo $data->wind->direction['name']; ?></td>
+          <td><?php echo $data->clouds['name']; ?></td>
+          <td><?php echo $data->precipitation['mode']; ?></td>
+          <td><img src="http://openweathermap.org/img/w/<?php echo $data->weather['icon']; ?>.png" /></td>
+          <td><?php echo $data->lastupdate['value']; ?></td>
+        </tr>
+        <?php
+      }
+    ?>
+  </tbody>
+</table>
