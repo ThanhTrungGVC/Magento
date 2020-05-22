@@ -1,5 +1,5 @@
 <?php
-namespace Ex\News\Model\Cron;
+namespace Ex\News\Cron;
 
 use Psr\Log\LoggerInterface;
 

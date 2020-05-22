@@ -1,9 +1,9 @@
 <?php
-namespace Ex\ExchangeRate\Model\Cron;
+namespace Ex\Weathers\Cron;
 
 use Psr\Log\LoggerInterface;
 
-class Auto_Update_ExchangeRate {
+class Auto_Update_Weathers {
     protected $logger;
 
     public function __construct(LoggerInterface $logger) {
@@ -16,6 +16,6 @@ class Auto_Update_ExchangeRate {
     * @return void
     */
     public function execute() {
-        $this->logger->info('Cron exchange rate Works');
+        $this->logger->info('Cron Weathers Works');
     }
 }

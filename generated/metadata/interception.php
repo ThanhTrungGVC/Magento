@@ -12804,7 +12804,7 @@
   'Ex\\ChatFacebook\\Block\\FacebookMessenger' => false,
   'Ex\\News\\Controller\\Index\\Index' => true,
   'Ex\\News\\Block\\News' => false,
-  'Ex\\News\\Model\\Cron\\Auto_Update_News' => false,
+  'Ex\\News\\Cron\\Auto_Update_News' => false,
   'Ex\\ChatSystem\\Helper\\Url' => false,
   'Ex\\ChatSystem\\Helper\\Data' => false,
   'Ex\\ChatSystem\\Controller\\AbstractIndex' => true,
