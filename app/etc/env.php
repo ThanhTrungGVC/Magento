@@ -13,7 +13,7 @@ return [
                 'host' => 'localhost',
                 'dbname' => 'magento',
                 'username' => 'root',
-                'password' => '',
+                'password' => '24021999',
                 'active' => '1'
             ]
         ]

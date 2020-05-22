@@ -29,7 +29,7 @@ class FacebookMessenger extends \Magento\Framework\View\Element\Template
      */
     public function getLocate()
     {
-        //return $this->_localeResolver->getLocale();
-        return "vi_VN";
+        return $this->_localeResolver->getLocale();
+        //return "vi_VN";
     }
 }

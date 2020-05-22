@@ -30,13 +30,10 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
      */
     public function getFacebookMessengerChatCode()
     {
-        return '      <!-- Your customer chat code -->
-      <div class="fb-customerchat"
-        attribution=setup_tool
-        page_id="112604557109963"
-  logged_in_greeting="Xin chào! Tôi có thể giúp gì cho bạn?"
-  logged_out_greeting="Xin chào! Tôi có thể giúp gì cho bạn?">
-      </div>';
+      return $this->scopeConfig->getValue(
+          self::FACEBOOK_MESSENGER_CUSTOMER_CHAT_CODE,
+          \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+      );
     }
 
     /**

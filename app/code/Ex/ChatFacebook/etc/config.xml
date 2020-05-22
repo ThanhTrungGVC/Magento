@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <ex_chatfacebook>
+            <general>
+                <facebook_messenger_enable>1</facebook_messenger_enable>
+                <facebook_messenger_customer_chat_code>
+                  <![CDATA[
+                    <div class="fb-customerchat"
+                      attribution=setup_tool
+                      page_id="112604557109963"
+                      logged_in_greeting="Xin chào! Tôi có thể giúp gì cho bạn?"
+                      logged_out_greeting="Xin chào! Tôi có thể giúp gì cho bạn?">
+                    </div>
+                  ]]>
+                </facebook_messenger_customer_chat_code>
+            </general>
+        </ex_chatfacebook>
+    </default>
+</config>
