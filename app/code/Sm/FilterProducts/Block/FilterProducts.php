@@ -25,7 +25,7 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 	protected $_storeCode;
 	protected $_catalogProductVisibility;
 	protected $_objectManager;
-	
+
 
     public function __construct(
 		\Magento\Framework\ObjectManagerInterface $objectManager,
@@ -47,7 +47,7 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 		$this->_config = $this->_getCfg($attr, $data);
         parent::__construct($context, $data);
     }
-	
+
 	/**
      * Resource initialization
      */
@@ -78,7 +78,7 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
             $this->_getConfig('product_source')
         ];
     }
-	
+
 	public function _getCfg($attr = null , $data = null)
 	{
 		$defaults = [];
@@ -91,7 +91,7 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 				$defaults[$_def_key] = $cfg;
 			}
 		}
-		
+
 		if (empty($groups)) return;
 		$cfgs = [];
 		foreach ($groups as $group) {
@@ -139,7 +139,7 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 		}
 		return true;
 	}
-	
+
 	protected function _toHtml()
     {
 		if (!(int)$this->_getConfig('enable', 1)) return ;
@@ -148,7 +148,7 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
         $this->setTemplate($template_file);
         return parent::_toHtml();
     }
-	
+
 		public function getProductDetailsHtml(\Magento\Catalog\Model\Product $product)
     {
         $renderer = $this->getDetailsRenderer($product->getTypeId());
@@ -171,7 +171,7 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
         }
         return null;
     }
-	
+
 	private function isHomepage(){
 		$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
 		$request = $objectManager->get('Magento\Framework\App\Action\Context')->getRequest();
@@ -180,7 +180,7 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 		}
 		return false;
 	}
-	
+
 	protected function getDetailsRendererList()
     {
 		return $this->getDetailsRendererListName() ? $this->getLayout()->getBlock(
@@ -189,14 +189,14 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 			$this->getNameInLayout().'.details.renderers'
 		);
 	}
-	
+
 	public function _tagId()
 	{
 		$tag_id = $this->getNameInLayout();
 		$tag_id = strpos($tag_id, '.') !== false ? str_replace('.', '_', $tag_id) : $tag_id;
 		return $tag_id;
 	}
-	
+
 	protected function _prepareLayout()
 	{
 		$this->getLayout()->addBlock(
@@ -212,7 +212,7 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 			'configurable'
 		)->setTemplate('Sm_FilterProducts::product/listing/renderer.phtml')->setData(['tagid' =>  $this->_tagId()]);
 	}
-	
+
 	private function _getProducts(){
 		$product_source = $this->_getConfig('product_source');
 		switch($product_source){
@@ -222,34 +222,34 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 			break;
 			case 'best_sellers':
 				return $this->_bestSellers();
-			break;	
+			break;
 			case 'special_products':
 				return $this->_specialProducts();
 			break;
 			case 'featured_products':
 				return $this->_featuredProducts();
-			break;	
+			break;
 			case 'other_products':
 				return $this->_otherProducts();
-			break;	
+			break;
 			case 'viewed_products':
 				return $this->_viewedProducts();
-			break;	
+			break;
 			case 'countdown_products':
 				return $this->_countDownProducts();
-			break;	
+			break;
 		}
 	}
-	
+
 	private function _countDownProducts() {
-		$count = $this->_getConfig('product_limitation');                       
+		$count = $this->_getConfig('product_limitation');
         $category_id = $this->_getConfig('select_category');
 		!is_array($category_id) && $category_id = preg_split('/[\s|,|;]/', $category_id, -1, PREG_SPLIT_NO_EMPTY);
 		$connection  = $this->_resource->getConnection();
 		$collection = $this->_objectManager->create('\Magento\Catalog\Model\ResourceModel\Product\Collection');
 		$now = date('Y-m-d H:i:s');
-		$dateTo =  $this->_getConfig('date_to', '');	
-		$dateToTime =  date('Y-m-d H:i:s', strtotime($dateTo));	
+		$dateTo =  $this->_getConfig('date_to', '');
+		$dateToTime =  date('Y-m-d H:i:s', strtotime($dateTo));
 		$collection->addMinimalPrice()
 			->addFinalPrice()
 			->addTaxPercents()
@@ -281,16 +281,16 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 		$collection->getSelect()->distinct(true)->group('e.entity_id')->limit($count);
 		return $collection;
 	}
-	
+
 	private function _featuredProducts(){
 		$product_order_by = $this->_getConfig('product_order_by');
 		$product_order_dir = $this->_getConfig('product_order_dir');
-		$count = $this->_getConfig('product_limitation');                       
+		$count = $this->_getConfig('product_limitation');
         $category_id = $this->_getConfig('select_category');
 		!is_array($category_id) && $category_id = preg_split('/[\s|,|;]/', $category_id, -1, PREG_SPLIT_NO_EMPTY);
 		$connection  = $this->_resource->getConnection();
 		$collection = $this->_objectManager->create('\Magento\Catalog\Model\ResourceModel\Product\Collection');
-		
+
 		$collection->addMinimalPrice()
 			->addFinalPrice()
 			->addTaxPercents()
@@ -312,7 +312,7 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 				null,
 				'left'
 			)->addAttributeToFilter(array(array('attribute' => 'category_id', 'in' => array( $category_id))));
-		}	
+		}
 		$collection->setVisibility($this->_catalogProductVisibility->getVisibleInCatalogIds());
 		switch ($product_order_by) {
 			case 'entity_id':
@@ -327,19 +327,19 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 				$collection->getSelect()->order(new \Zend_Db_Expr('RAND()'));
 				break;
 		}
-		
+
 		$collection->getSelect()->distinct(true)->group('e.entity_id')->limit($count);
-        return $collection;	
+        return $collection;
 	}
-	
+
 	private function _specialProducts() {
-		$count = $this->_getConfig('product_limitation');                       
+		$count = $this->_getConfig('product_limitation');
         $category_id = $this->_getConfig('select_category');
 		!is_array($category_id) && $category_id = preg_split('/[\s|,|;]/', $category_id, -1, PREG_SPLIT_NO_EMPTY);
 		$connection  = $this->_resource->getConnection();
 		$collection = $this->_objectManager->create('\Magento\Catalog\Model\ResourceModel\Product\Collection');
 		$now = date('Y-m-d H:i:s');
-		
+
 		$collection->addMinimalPrice()
 			->addFinalPrice()
 			->addTaxPercents()
@@ -371,9 +371,9 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 		$collection->getSelect()->distinct(true)->group('e.entity_id')->limit($count);
 		return $collection;
 	}
-	
+
 	private function _bestSellers(){
-		$count = $this->_getConfig('product_limitation');                       
+		$count = $this->_getConfig('product_limitation');
         $category_id = $this->_getConfig('select_category');
 		!is_array($category_id) && $category_id = preg_split('/[\s|,|;]/', $category_id, -1, PREG_SPLIT_NO_EMPTY);
 		$connection  = $this->_resource->getConnection();
@@ -385,7 +385,7 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 			->addUrlRewrite()
 			->setStoreId($this->_storeId)
 			->addAttributeToFilter('is_saleable', ['eq' => 1], 'left');
-			
+
 		if (!empty($category_id) && $category_id){
 			$collection->joinField(
 				'category_id',
@@ -407,9 +407,9 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
             ->limit($count);
 		return $collection;
 	}
-	
+
 	private function _viewedProducts(){
-		$count = $this->_getConfig('product_limitation');                       
+		$count = $this->_getConfig('product_limitation');
         $category_id = $this->_getConfig('select_category');
 		!is_array($category_id) && $category_id = preg_split('/[\s|,|;]/', $category_id, -1, PREG_SPLIT_NO_EMPTY);
 		$connection  = $this->_resource->getConnection();
@@ -421,7 +421,7 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 			->addUrlRewrite()
 			->setStoreId($this->_storeId)
 			->addAttributeToFilter('is_saleable', ['eq' => 1], 'left');
-			
+
 		if (!empty($category_id) && $category_id){
 			$collection->joinField(
 				'category_id',
@@ -438,13 +438,13 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 			->where('mv.event_type_id = 1 AND mv.store_id='.$this->_storeId.'' )
 			->group('entity_id');
 		$collection->getSelect()->order('num_view_counts DESC');
-		$collection->clear();	
+		$collection->clear();
 		$collection->getSelect()->distinct(true)->group('e.entity_id')->limit($count);
 		return $collection;
 	}
-	
+
 	private function _newProducts(){
-		$count = $this->_getConfig('product_limitation');                       
+		$count = $this->_getConfig('product_limitation');
         $category_id = $this->_getConfig('select_category');
 		!is_array($category_id) && $category_id = preg_split('/[\s|,|;]/', $category_id, -1, PREG_SPLIT_NO_EMPTY);
         $connection  = $this->_resource->getConnection();
@@ -471,16 +471,16 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 		$collection->getSelect()->distinct(true)->group('e.entity_id')->limit($count);
         return $collection;
 	}
-	
+
 	private function _otherProducts(){
-		$count = $this->_getConfig('product_limitation');                       
+		$count = $this->_getConfig('product_limitation');
         $category_id = $this->_getConfig('select_category');
 		$product_order_by = $this->_getConfig('product_order_by');
 		$product_order_dir = $this->_getConfig('product_order_dir');
 		!is_array($category_id) && $category_id = preg_split('/[\s|,|;]/', $category_id, -1, PREG_SPLIT_NO_EMPTY);
 		$connection  = $this->_resource->getConnection();
         $collection = $this->_objectManager->create('\Magento\Catalog\Model\ResourceModel\Product\Collection');
-		
+
 		$collection->addMinimalPrice()
 			->addFinalPrice()
 			->addTaxPercents()
@@ -514,17 +514,17 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
 				$collection->getSelect()->order(new \Zend_Db_Expr('RAND()'));
 				break;
 		}
-		
+
 		$collection->getSelect()->distinct(true)->group('e.entity_id')->limit($count);
         return $collection;
 	}
-	
+
 	public function getLoadedProductCollection() {
         return $this->_getProducts();
     }
-	
+
 	public function getAddToCartPostParams(\Magento\Catalog\Model\Product $product)
-    {	
+    {
         $url = $this->getAddToCartUrl($product);
         return [
             'action' => $url,
@@ -535,5 +535,5 @@ class FilterProducts extends \Magento\Catalog\Block\Product\AbstractProduct
             ]
         ];
     }
-   
+
 }
